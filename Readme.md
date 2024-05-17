@@ -33,3 +33,23 @@ The `git-push.py` script logs all its activities to the `git-logs.log` file. Thi
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request.
+
+
+
+```
+This project is a set of Python scripts designed to automate and manage Git repositories on your local machine. It extends the functionality of standard Git commands and adds new commands for managing multiple repositories.
+
+The main script, `git.py`, provides commands for initializing a new Git repository, cloning an existing repository, showing details of all managed repositories, and deleting a repository. It also offers an option to manage Git pushes for a repository, which means it will automatically add, commit, and push changes to the specified branch every half hour.
+
+The `git-push.py` script is responsible for managing Git pushes. It runs in an infinite loop, checking every half hour if there are changes in the repositories that are marked to be managed. If it detects changes, it adds, commits, and pushes them to the specified branch. All its activities are logged to the `git-logs.log` file.
+
+The `repos.txt` file is a list of all repositories that are managed by the scripts. Each line in the file represents a repository and contains the directory of the repository, the branch to which changes should be pushed, and a marker indicating if the repository is managed by the `git-push.py` script.
+
+The problem that this project solves is the manual management of Git repositories. It can be time-consuming and error-prone to manually add, commit, and push changes to multiple repositories. This project automates these tasks, saving time and reducing the chance of errors.
+
+The project was improved by adding the ability to manage Git pushes. This feature was implemented in the `git-push.py` script, which runs in the background and automatically pushes changes every half hour. This eliminates the need to manually push changes, making the management of Git repositories even more effortless.
+
+The project also includes a logging feature, which logs all activities of the `git-push.py` script to the `git-logs.log` file. This allows you to easily track what the script is doing and troubleshoot any issues that may arise.
+
+In conclusion, this project provides a set of tools that automate and simplify the management of Git repositories. It saves time, reduces the chance of errors, and provides a log of all activities for easy troubleshooting.
+```
