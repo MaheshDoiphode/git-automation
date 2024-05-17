@@ -2,13 +2,18 @@ import os
 import subprocess
 import sys
 
-
 # Get the current directory
 current_dir = os.getcwd()
 git_path = "D:\\Program Files\\Git\\cmd\\git.exe"
 
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.realpath(__file__))
+
+# Use os.path.join to create the relative paths
+repos_file = os.path.join(script_dir, 'repos.txt')
+
 # Read the repos.txt file into a list
-with open(r"C:\Users\P1357911\Desktop\testingpython\git-automation\repos.txt", "r") as file:
+with open(repos_file, "r") as file:
     repos = [line.strip() for line in file]
 
 # Check the command that was run
@@ -76,7 +81,7 @@ elif command == 'delete':
 
     # Remove the current directory from the repos.txt file
     repos = [repo for repo in repos if not repo.startswith(current_dir)]
-    with open(r"C:\Users\P1357911\Desktop\testingpython\git-automation\repos.txt", "w") as file:
+    with open(repos_file, "w") as file:
         for repo in repos:
             file.write(repo + '\n')
     print("Updated the repos.txt file.")
@@ -91,7 +96,8 @@ manage_push = input("Do you want the script to manage git push every half hour? 
 if manage_push.lower() == 'y':
     # Ask the user for the branch name
     branch_name = input("Please enter the branch name to which changes should be pushed: ")
+
     # Append the dir_name, branch name and a marker next to the repo name in the repos.txt file
-    with open(r"C:\Users\P1357911\Desktop\testingpython\git-automation\repos.txt", "a") as file:
+    with open(repos_file, "a") as file:
         file.write(dir_name + " " + branch_name + " *\n")
     print("The script will now manage git push every half hour.")

@@ -1,14 +1,21 @@
 import os, subprocess, time, logging
 from datetime import datetime
 
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.realpath(__file__))
+
+# Use os.path.join to create the relative paths
+repos_file = os.path.join(script_dir, 'repos.txt')
+logs_file = os.path.join(script_dir, 'git-logs.log')
+
 # Set up logging
-logging.basicConfig(filename=r"C:\Users\P1357911\Desktop\testingpython\git-automation\git-logs.log", level=logging.INFO)
+logging.basicConfig(filename=logs_file, level=logging.INFO)
 
 def manage_git_push():
     git_path = "D:\\Program Files\\Git\\cmd\\git.exe"
     while True:
         logging.info("----- Starting new cycle at %s -----" % datetime.now())
-        with open(r"C:\Users\P1357911\Desktop\testingpython\git-automation\repos.txt", "r") as file:
+        with open(repos_file, "r") as file:
             repos = [line.strip() for line in file]
 
         # Create a new list to store the updated repos
@@ -27,9 +34,7 @@ def manage_git_push():
                     # The directory is not a git repository, so continue with the next repo
                     logging.warning("Directory %s is not a git repository" % dir_name)
                     continue
-
                 logging.info("Processing repository %s" % dir_name)
-
                 # If the repo is supposed to be managed by the script, perform git operations
                 if repo.endswith('*'):
                     # Check if there are changes
@@ -43,17 +48,14 @@ def manage_git_push():
                         logging.info("Changes committed. Pushing changes.")
                         subprocess.call([git_path, "push","origin", branch_name])
                         logging.info("Changes pushed for repository %s" % dir_name)
-
                 # Add the repo to the updated list
                 updated_repos.append(repo)
-
         # Write the updated list back to repos.txt
         logging.info("Updating repos.txt")
-        with open(r"C:\Users\P1357911\Desktop\testingpython\git-automation\repos.txt", "w") as file:
+        with open(repos_file, "w") as file:
             for repo in updated_repos:
                 file.write(repo + '\n')
         logging.info("repos.txt updated")
-
         time.sleep(1800)
 
 manage_git_push()
